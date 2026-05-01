@@ -1,0 +1,22 @@
+1. korzystamy z pliku training.py - wywołujemy i podajemy rozmiar najmniejszej warstwy
+    skrypt tworzy model i uczy go - generuje plik autoencoder_latent_<rozmiar>.pth
+
+2. aby przetestować wytrenowaną wersję sieci, mozemy wywołać visualize.py, tylko w kodzie trzeba zmienić wartość latent
+    w efekcie dostajemy przykładowe trzy zapisy EKG ze skompresowaną wersją.
+
+Net.py - główna klasa modelu + dwie metody - train i test
+
+DataPreprocessor.py - pobiera dane i skaluje odpowiednio
+
+przykładowe 4 pliki z wytrenowanymi sieciami - 16, 40, 100 i 128 neuronów w środkowej warstwie
+
+zmiany względem colaba:
+- zmieniłem preprocessing danych, żeby były w zakresie od 0 do 1
+- zmieniłem architekturę sieci tak, aby pasowała do nowego preprocessingu
+- obudowałem w klasy
+- teraz wydaje mi sie ze MSE wychodzi dużo niższe po tych zmianach głównie jeśli chodzi o preprocessing
+
+
+do zrobienia:
+- dopisać coś w stylu pliku kompresor.py, taki "użytkowy", w którym można skompresować odczyt EKG lub zdekompresować odczyt EKG
+- jakoś ten kod bardziej uporządkować
