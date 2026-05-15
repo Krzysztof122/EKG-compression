@@ -20,3 +20,12 @@ zmiany względem colaba:
 do zrobienia:
 - dopisać coś w stylu pliku kompresor.py, taki "użytkowy", w którym można skompresować odczyt EKG lub zdekompresować odczyt EKG
 - jakoś ten kod bardziej uporządkować
+
+-------------jak używać kompresora--------------
+Kompresja:
+
+python compressor.py compress ekg.npy compressed.pkl 32 autoencoder_latent_32.pth
+
+Dekompresja:
+
+python compressor.py decompress compressed.pkl restored.npy 32 autoencoder_latent_32.pth
