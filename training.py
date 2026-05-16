@@ -116,7 +116,8 @@ def trenuj(latent, epochs):
         print(f"\n[!!!] {e}\n")
 
 
-
+def list_of_strings(arg):
+    return [int(s) for s in arg.split(',')]
 
 # przyklad wywolania:
 # python training.py 32 8
@@ -127,7 +128,7 @@ if __name__ == "__main__":
     
     parser.add_argument(
         "latent", 
-        type=int, 
+        type=list_of_strings, 
         help="Rozmiar przestrzeni ukrytej (latent_dim), np. 16, 32, 50."
     )
 
@@ -139,10 +140,13 @@ if __name__ == "__main__":
     )
     
     args = parser.parse_args()
+    
+    
     latent = args.latent
     epochs = args.epochs
     
-    trenuj(latent, epochs)
+    for l in latent:
+        trenuj(l, epochs)
     
 
 

@@ -58,14 +58,20 @@ def wizualizuj(latent_dim):
         
     # 3. Rysujemy
     plot_ekg_reconstruction(model, test_loader, dp.scaler, num_samples=3)
+    
+
+def list_of_strings(arg):
+    return [int(s) for s in arg.split(',')]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="")
     parser.add_argument(
-        "latent_dim", 
-        type=int, 
+        "latent", 
+        type=list_of_strings, 
         help="Rozmiar przestrzeni ukrytej (latent_dim), np. 16, 32, 50."
     )
     args = parser.parse_args()
-    wizualizuj(args.latent_dim)
+    latent = args.latent
+    for l in latent:
+        wizualizuj(l)
     
