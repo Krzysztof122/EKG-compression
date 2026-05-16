@@ -1,3 +1,4 @@
+import argparse
 import torch
 import matplotlib.pyplot as plt
 from DataPreprocessor import DataPreprocessor
@@ -38,11 +39,8 @@ def plot_ekg_reconstruction(model, dataloader, scaler, num_samples=3):
         
     plt.tight_layout()
     plt.show()
-
-if __name__ == "__main__":
-    latent_dim = 128
     
-    # 1. Przygotowujemy dane
+def wizualizuj(latent_dim):
     dp = DataPreprocessor()
     _, test_loader = dp.dataToLoader(batchSize=32)
     
@@ -60,3 +58,14 @@ if __name__ == "__main__":
         
     # 3. Rysujemy
     plot_ekg_reconstruction(model, test_loader, dp.scaler, num_samples=3)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument(
+        "latent_dim", 
+        type=int, 
+        help="Rozmiar przestrzeni ukrytej (latent_dim), np. 16, 32, 50."
+    )
+    args = parser.parse_args()
+    wizualizuj(args.latent_dim)
+    
