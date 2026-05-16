@@ -66,7 +66,54 @@ def stworz_warstwy(latent_dim: int) -> Tuple[List[nn.Module], List[nn.Module]]:
 
     return encoder_siec, decoder_siec
 
+def trenuj(latent, epochs):
+    try:
+        encoder_net, decoder_net = stworz_warstwy(latent)
+        
+        print("\n--- ENKODER ---")
+        print(nn.Sequential(*encoder_net))
+        
+        print("\n--- DEKODER ---")
+        print(nn.Sequential(*decoder_net))
+        
+        dp = DataPreprocessor()
+        train_dataloader, test_dataloader = dp.dataToLoader(batchSize=32)
 
+        model = Net(encoder_net, decoder_net)
+        loss_func = nn.MSELoss()
+        optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+        epochs = epochs
+        train_losses = []
+        test_losses = []
+        
+
+        #zmienna do zapisu najlepszego wyniku
+        best_test_loss = float('inf')
+        nazwa_pliku = f"autoencoder_latent_{latent}.pth"
+
+        for e in range(epochs):
+            print(f"Epoch {e+1}\n-------------------------------")
+            avg_train_loss = train(train_dataloader, model, loss_func, optimizer)
+            avg_test_loss = test(test_dataloader, model, loss_func)
+
+            train_losses.append(avg_train_loss)
+            test_losses.append(avg_test_loss)
+
+            #jesli po danej epoce test wyszedl najlepiej to zapisuje.
+            if avg_test_loss < best_test_loss:
+                best_test_loss = avg_test_loss
+                torch.save(model.state_dict(), nazwa_pliku)
+                print("best one yet - saved")
+
+
+        print("Uczenie zakończone!")
+        print(f"Model zapisany jako: {nazwa_pliku}")
+
+
+
+    except ValueError as e:
+        print(f"\n[!!!] {e}\n")
 
 
 
@@ -92,54 +139,11 @@ if __name__ == "__main__":
     )
     
     args = parser.parse_args()
+    latent = args.latent
+    epochs = args.epochs
     
-    try:
-        encoder_net, decoder_net = stworz_warstwy(args.latent)
-        
-        print("\n--- ENKODER ---")
-        print(nn.Sequential(*encoder_net))
-        
-        print("\n--- DEKODER ---")
-        print(nn.Sequential(*decoder_net))
-        
-        dp = DataPreprocessor()
-        train_dataloader, test_dataloader = dp.dataToLoader(batchSize=32)
-
-        model = Net(encoder_net, decoder_net)
-        loss_func = nn.MSELoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-
-        epochs = args.epochs
-        train_losses = []
-        test_losses = []
-        
-
-        #zmienna do zapisu najlepszego wyniku
-        best_test_loss = float('inf')
-        nazwa_pliku = f"autoencoder_latent_{args.latent}.pth"
-
-        for e in range(epochs):
-            print(f"Epoch {e+1}\n-------------------------------")
-            avg_train_loss = train(train_dataloader, model, loss_func, optimizer)
-            avg_test_loss = test(test_dataloader, model, loss_func)
-
-            train_losses.append(avg_train_loss)
-            test_losses.append(avg_test_loss)
-
-            #jesli po danej epoce test wyszedl najlepiej to zapisuje.
-            if avg_test_loss < best_test_loss:
-                best_test_loss = avg_test_loss
-                torch.save(model.state_dict(), nazwa_pliku)
-                print("best one yet - saved")
-
-
-        print("Uczenie zakończone!")
-        print(f"Model zapisany jako: {nazwa_pliku}")
-
-
-
-    except ValueError as e:
-        print(f"\n[!!!] {e}\n")
+    trenuj(latent, epochs)
+    
 
 
 
