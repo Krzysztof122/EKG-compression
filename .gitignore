@@ -1,4 +1,13 @@
+# Python
 *.pth
 *.pyc
 *.npy
 *.pkl
+__pycache__/
+
+# virtual environment
+.venv/
+
+#IDEs
+.vscode
+.zed
