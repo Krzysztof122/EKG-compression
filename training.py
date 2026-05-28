@@ -119,28 +119,42 @@ def trenuj(latent, epochs):
 def list_of_strings(arg):
     return [int(s) for s in arg.split(',')]
 
-# przyklad wywolania:
-# python training.py 32 8
-if __name__ == "__main__":
 
-    #obsluga parametrow wywolania
-    parser = argparse.ArgumentParser(description="Skrypt do testowania różnej siły kompresji EKG.")
-    
+def usage():
+    parser = argparse.ArgumentParser(
+        description="Trenowanie autoenkodera do kompresji sygnałów EKG.",
+        epilog="""
+    Przykłady użycia:
+
+    python training.py 32 10
+    python training.py 16,32,64 20
+    """,
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+
     parser.add_argument(
-        "latent", 
-        type=list_of_strings, 
-        help="Rozmiar przestrzeni ukrytej (latent_dim), np. 16, 32, 50."
+        "latent",
+        type=list_of_strings,
+        metavar="LATENT_DIM",
+        help=(
+            "Rozmiary przestrzeni ukrytej oddzielone przecinkami. "
+            "Przykład: 16 lub 16,32,64"
+        )
     )
 
     parser.add_argument(
         "epochs",
         type=int,
-        help="Liczba epok do nauczenia",
-        default=10
+        nargs="?",
+        default=10,
+        metavar="EPOCHS",
+        help="Liczba epok treningowych (domyślnie: 10)"
     )
-    
+    return parser
+
+if __name__ == "__main__":
+    parser = usage()
     args = parser.parse_args()
-    
     
     latent = args.latent
     epochs = args.epochs

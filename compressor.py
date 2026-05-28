@@ -58,23 +58,76 @@ def load_compressed(input_path):
     with open(input_path, "rb") as f:
         return pickle.load(f)
 
+def usage():
+    parser = argparse.ArgumentParser(
+        description="Kompresja i dekompresja sygnałów EKG przy użyciu autoenkodera."
+    )
+
+    subparsers = parser.add_subparsers(
+        dest="mode",
+        required=True,
+        help="Tryb działania programu"
+    )
+
+    # ---------------- COMPRESS ---------------- #
+
+    compress_parser = subparsers.add_parser(
+        "compress",
+        help="Kompresja sygnału EKG do latent vector"
+    )
+
+    compress_parser.add_argument(
+        "input",
+        help="Ścieżka do pliku .npy z sygnałem EKG"
+    )
+
+    compress_parser.add_argument(
+        "output",
+        help="Ścieżka do pliku wyjściowego (.pkl)"
+    )
+
+    compress_parser.add_argument(
+        "latent_dim",
+        type=int,
+        help="Rozmiar przestrzeni latentnej"
+    )
+
+    compress_parser.add_argument(
+        "model",
+        help="Ścieżka do wytrenowanego modelu"
+    )
+
+    # ---------------- DECOMPRESS ---------------- #
+
+    decompress_parser = subparsers.add_parser(
+        "decompress",
+        help="Dekompresja latent vector do sygnału EKG"
+    )
+
+    decompress_parser.add_argument(
+        "input",
+        help="Ścieżka do pliku .pkl ze skompresowanym wektorem"
+    )
+
+    decompress_parser.add_argument(
+        "output",
+        help="Ścieżka do pliku wyjściowego .npy"
+    )
+
+    decompress_parser.add_argument(
+        "latent_dim",
+        type=int,
+        help="Rozmiar przestrzeni latentnej"
+    )
+
+    decompress_parser.add_argument(
+        "model",
+        help="Ścieżka do wytrenowanego modelu"
+    )
+    return parser
 
 def main():
-    parser = argparse.ArgumentParser()
-
-    subparsers = parser.add_subparsers(dest="mode")
-
-    compress_parser = subparsers.add_parser("compress")
-    compress_parser.add_argument("input")
-    compress_parser.add_argument("output")
-    compress_parser.add_argument("latent_dim", type=int)
-    compress_parser.add_argument("model")
-
-    decompress_parser = subparsers.add_parser("decompress")
-    decompress_parser.add_argument("input")
-    decompress_parser.add_argument("output")
-    decompress_parser.add_argument("latent_dim", type=int)
-    decompress_parser.add_argument("model")
+    parser = usage()
 
     args = parser.parse_args()
 
