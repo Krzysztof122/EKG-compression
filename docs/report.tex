@@ -104,21 +104,35 @@ W celu zbadania zależności pomiędzy stopniem kompresji a wiernością rekonst
 
 \subsection{Zestawienie ilościowe}
 W tabeli \ref{tab:wyniki} przedstawiono przykładowe, uzyskane eksperymentalnie wartości błędu średniokwadratowego (MSE Loss) na zbiorze testowym dla poszczególnych poziomów kompresji. Wartości te mogą się nieznacznie różnić w zależności od liczby epok treningowych oraz inicjalizacji wag początkowych sieci.
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Wpływ wymiaru przestrzeni ukrytej na błąd MSE}
 \label{tab:wyniki}
 \begin{tabular}{ccc}
 \toprule
 \textbf{Wymiar ukryty (\texttt{latent\_dim})} & \textbf{Stopień kompresji} & \textbf{Średni błąd MSE (Test Loss)} \\ \midrule
-10  & 18.7$\times$ & 0.004497 \\
-16  & 11.68$\times$ & 0.003786 \\
-40  & 4.67$\times$ & 0.001928 \\
-100 & 1.87$\times$ & 0.001066 \\
-128 & 1.46$\times$ & 0.000358 \\
+4   & 46.75$\times$ & 0.012066 \\
+8   & 23.38$\times$ & 0.006891 \\
+12  & 15.58$\times$ & 0.006198 \\
+16  & 11.69$\times$ & 0.006442 \\
+24  & 7.79$\times$  & 0.004534 \\
+32  & 5.84$\times$  & 0.002555 \\
+40  & 4.67$\times$  & 0.001928 \\
+48  & 3.90$\times$  & 0.002344 \\
+64  & 2.92$\times$  & 0.001327 \\
+96  & 1.95$\times$  & 0.001428 \\
+128 & 1.46$\times$  & 0.000548 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Oraz przedstawiono na wykresie \ref{fig:wykres_mse_results}:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../plots/mse_results_graph.png} 
+\caption{Zależność błędu rekonstrukcji MSE od wielkości wąskiego gardła.}
+\label{fig:wykres_mse_results}
+\end{figure}
 
 \begin{figure}[H]
 \centering
