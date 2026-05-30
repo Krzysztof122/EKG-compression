@@ -12,7 +12,14 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{float}
+\usepackage{hyperref}
 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
 \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
 
 % Definicje kolorów do listingu kodu źródłowego
@@ -104,13 +111,15 @@ W celu zbadania zależności pomiędzy stopniem kompresji a wiernością rekonst
 
 \subsection{Zestawienie ilościowe}
 W tabeli \ref{tab:wyniki} przedstawiono przykładowe, uzyskane eksperymentalnie wartości błędu średniokwadratowego (MSE Loss) na zbiorze testowym dla poszczególnych poziomów kompresji. Wartości te mogą się nieznacznie różnić w zależności od liczby epok treningowych oraz inicjalizacji wag początkowych sieci.
+
 \begin{table}[H]
 \centering
+\footnotesize
 \caption{Wpływ wymiaru przestrzeni ukrytej na błąd MSE}
 \label{tab:wyniki}
 \begin{tabular}{ccccc}
 \toprule
-\textbf{Wymiar ukryty} & \textbf{Stopień kompresji} & \textbf{MSE (GELU)} & \textbf{MSE (Sigmoid)} & \textbf{MSE (Linear)} \\ \midrule
+\shortstack{\textbf{Wymiar}\\\textbf{ukryty}} & \shortstack{\textbf{Stopień}\\\textbf{kompresji}} & \textbf{MSE (GELU)} & \textbf{MSE (Sigmoid)} & \textbf{MSE (Linear)} \\ \midrule
 4   & 46.75$\times$ & 0.012066 & 0.008046 & 0.015551 \\
 8   & 23.38$\times$ & 0.006891 & 0.004943 & 0.009922 \\
 12  & 15.58$\times$ & 0.006198 & 0.004979 & 0.008914 \\
