@@ -39,13 +39,17 @@ def stworz_warstwy(latent_dim: int) -> Tuple[List[nn.Module], List[nn.Module]]:
         encoder_siec.extend([
             nn.Linear(wejscie, wyjscie),
             nn.BatchNorm1d(wyjscie),
-            nn.GELU()
+            #nn.GELU()
+            #nn.ReLU()
+            nn.Sigmoid()
         ])
         wejscie = wyjscie # Wyjście poprzedniej warstwy staje się wejściem kolejnej
         
     # Ostatni skok z najniższego schodka do latent_dim
-    encoder_siec.extend([nn.Linear(wejscie, latent_dim), nn.GELU()])
-
+    #encoder_siec.extend([nn.Linear(wejscie, latent_dim), nn.GELU()])
+    #encoder_siec.extend([nn.Linear(wejscie, latent_dim), nn.ReLU()])
+    encoder_siec.extend([nn.Linear(wejscie, latent_dim), nn.Sigmoid()])
+    #encoder_siec.extend([nn.Linear(wejscie, latent_dim)])
     # 4. BUDUJEMY DEKODER
     decoder_siec = []
     wejscie = latent_dim
@@ -54,7 +58,9 @@ def stworz_warstwy(latent_dim: int) -> Tuple[List[nn.Module], List[nn.Module]]:
     for wyjscie in schodki_odwrotne:
         decoder_siec.extend([
             nn.Linear(wejscie, wyjscie),
-            nn.GELU(),
+            #nn.GELU(),
+            #nn.ReLU(),
+            nn.Sigmoid(),
             nn.BatchNorm1d(wyjscie) # W dekoderze zazwyczaj omijamy Dropout
         ])
         wejscie = wyjscie

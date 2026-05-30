@@ -1,10 +1,10 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[polish]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage[polish]{babel}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{booktabs}
@@ -108,20 +108,20 @@ W tabeli \ref{tab:wyniki} przedstawiono przykładowe, uzyskane eksperymentalnie 
 \centering
 \caption{Wpływ wymiaru przestrzeni ukrytej na błąd MSE}
 \label{tab:wyniki}
-\begin{tabular}{ccc}
+\begin{tabular}{ccccc}
 \toprule
-\textbf{Wymiar ukryty (\texttt{latent\_dim})} & \textbf{Stopień kompresji} & \textbf{Średni błąd MSE (Test Loss)} \\ \midrule
-4   & 46.75$\times$ & 0.012066 \\
-8   & 23.38$\times$ & 0.006891 \\
-12  & 15.58$\times$ & 0.006198 \\
-16  & 11.69$\times$ & 0.006442 \\
-24  & 7.79$\times$  & 0.004534 \\
-32  & 5.84$\times$  & 0.002555 \\
-40  & 4.67$\times$  & 0.001928 \\
-48  & 3.90$\times$  & 0.002344 \\
-64  & 2.92$\times$  & 0.001327 \\
-96  & 1.95$\times$  & 0.001428 \\
-128 & 1.46$\times$  & 0.000548 \\
+\textbf{Wymiar ukryty} & \textbf{Stopień kompresji} & \textbf{MSE (GELU)} & \textbf{MSE (Sigmoid)} & \textbf{MSE (Linear)} \\ \midrule
+4   & 46.75$\times$ & 0.012066 & 0.008046 & 0.015551 \\
+8   & 23.38$\times$ & 0.006891 & 0.004943 & 0.009922 \\
+12  & 15.58$\times$ & 0.006198 & 0.004979 & 0.008914 \\
+16  & 11.69$\times$ & 0.006442 & 0.003111 & 0.005528 \\
+24  & 7.79$\times$  & 0.004534 & 0.003131 & 0.005193 \\
+32  & 5.84$\times$  & 0.002555 & 0.002084 & 0.002619 \\
+40  & 4.67$\times$  & 0.001928 & 0.001862 & 0.002263 \\
+48  & 3.90$\times$  & 0.002344 & 0.001961 & 0.002420 \\
+64  & 2.92$\times$  & 0.001327 & 0.001930 & 0.001384 \\
+96  & 1.95$\times$  & 0.001428 & 0.001956 & 0.001365 \\
+128 & 1.46$\times$  & 0.000548 & 0.000462 & 0.000909 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -129,7 +129,7 @@ W tabeli \ref{tab:wyniki} przedstawiono przykładowe, uzyskane eksperymentalnie 
 Oraz przedstawiono na wykresie \ref{fig:wykres_mse_results}:
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../plots/mse_results_graph.png} 
+\includegraphics[width=0.85\textwidth]{../plots/mse_results_graph_new.png} 
 \caption{Zależność błędu rekonstrukcji MSE od wielkości wąskiego gardła.}
 \label{fig:wykres_mse_results}
 \end{figure}

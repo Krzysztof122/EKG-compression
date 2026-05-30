@@ -39,6 +39,9 @@ def plot_ekg_reconstruction(model, dataloader, scaler, num_samples=3):
         
     plt.tight_layout()
     plt.show()
+
+if __name__ == "__main__":
+    latent_dim = 16
     
 def wizualizuj(latent_dim):
     dp = DataPreprocessor()
